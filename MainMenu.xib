@@ -12,17 +12,18 @@
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<string>NSView</string>
-			<string>NSMenu</string>
-			<string>NSWindowTemplate</string>
 			<string>NSMenuItem</string>
-			<string>NSTextField</string>
+			<string>NSMenu</string>
 			<string>NSTextFieldCell</string>
 			<string>NSButtonCell</string>
-			<string>NSImageCell</string>
 			<string>NSButton</string>
 			<string>NSImageView</string>
+			<string>NSImageCell</string>
+			<string>NSProgressIndicator</string>
 			<string>NSCustomObject</string>
+			<string>NSView</string>
+			<string>NSWindowTemplate</string>
+			<string>NSTextField</string>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1469,7 +1470,7 @@
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="252562039"/>
-							<int key="NSTag">2</int>
+							<int key="NSTag">3</int>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="348820377">
 								<int key="NSCellFlags">67239424</int>
@@ -1522,7 +1523,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="397880054"/>
-								<string key="NSPlaceholderString">enter file name</string>
+								<string key="NSPlaceholderString">save to filepath</string>
 								<reference key="NSControlView" ref="52816084"/>
 								<bool key="NSDrawsBackground">YES</bool>
 								<object class="NSColor" key="NSBackgroundColor" id="130779140">
@@ -1658,7 +1659,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="397880054"/>
-								<string key="NSPlaceholderString">enter file title </string>
+								<string key="NSPlaceholderString">save to filepath</string>
 								<reference key="NSControlView" ref="635999485"/>
 								<bool key="NSDrawsBackground">YES</bool>
 								<reference key="NSBackgroundColor" ref="130779140"/>
@@ -1797,6 +1798,16 @@
 								<reference key="NSBackgroundColor" ref="1018160956"/>
 								<reference key="NSTextColor" ref="346448942"/>
 							</object>
+						</object>
+						<object class="NSProgressIndicator" id="964511978">
+							<reference key="NSNextResponder" ref="439893737"/>
+							<int key="NSvFlags">-2147482356</int>
+							<object class="NSPSMatrix" key="NSDrawMatrix"/>
+							<string key="NSFrame">{{13, 8}, {16, 16}}</string>
+							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
+							<int key="NSpiFlags">20746</int>
+							<double key="NSMaxValue">100</double>
 						</object>
 					</object>
 					<string key="NSFrame">{{7, 11}, {422, 361}}</string>
@@ -2686,6 +2697,22 @@
 					</object>
 					<int key="connectionID">639</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">progress</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="964511978"/>
+					</object>
+					<int key="connectionID">642</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">conversionProgress</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="964511978"/>
+					</object>
+					<int key="connectionID">643</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -3254,7 +3281,6 @@
 							<reference ref="563918944"/>
 							<reference ref="547353844"/>
 							<reference ref="252562039"/>
-							<reference ref="136280295"/>
 							<reference ref="364045331"/>
 							<reference ref="420045895"/>
 							<reference ref="966546015"/>
@@ -3262,6 +3288,8 @@
 							<reference ref="288321383"/>
 							<reference ref="635999485"/>
 							<reference ref="893625365"/>
+							<reference ref="136280295"/>
+							<reference ref="964511978"/>
 						</object>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -4031,6 +4059,11 @@
 						<reference key="object" ref="519324755"/>
 						<reference key="parent" ref="893625365"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">641</int>
+						<reference key="object" ref="964511978"/>
+						<reference key="parent" ref="439893737"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -4322,6 +4355,7 @@
 					<string>626.IBPluginDependency</string>
 					<string>631.IBPluginDependency</string>
 					<string>632.IBPluginDependency</string>
+					<string>641.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
 					<string>72.ImportedFromIB2</string>
 					<string>73.IBPluginDependency</string>
@@ -4673,6 +4707,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
@@ -4712,7 +4747,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">639</int>
+			<int key="maxID">643</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4770,6 +4805,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>conversionProgress</string>
 							<string>decodeSaveTo</string>
 							<string>decodeSaveToTitle</string>
 							<string>decodedImportTrack</string>
@@ -4786,6 +4822,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSProgressIndicator</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
@@ -4805,6 +4842,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>conversionProgress</string>
 							<string>decodeSaveTo</string>
 							<string>decodeSaveToTitle</string>
 							<string>decodedImportTrack</string>
@@ -4821,6 +4859,10 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">conversionProgress</string>
+								<string key="candidateClassName">NSProgressIndicator</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">decodeSaveTo</string>
 								<string key="candidateClassName">NSButton</string>

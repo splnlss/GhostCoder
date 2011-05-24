@@ -26,6 +26,7 @@
 	IBOutlet NSTextField *decodeSaveToTitle;
 	IBOutlet NSTextField *decodedImportTrack;
 	IBOutlet NSTextField *rawOutput;
+    IBOutlet NSProgressIndicator *conversionProgress;
 
 	//decode interface elements
 	
@@ -40,6 +41,7 @@
 
 -(void)disableInterfaceElements;
 -(void)enableInterfaceElements;
+-(void)cleanUp;
 -(void)promptAlert:(NSString *)mainText altMessage:(NSString *)altText;
 -(IBAction)encodeAudioFile:(id)sender;
 -(IBAction)openFile:(id)sender;

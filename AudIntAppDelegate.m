@@ -91,7 +91,11 @@
 			}
 			else 
 			{
+                //./sox vvvvvv.flac justsegment.flac trim 0 5
+                //./sox vvvvvv.flac justsegment.flac pitch .5
 				NSLog(@"%@",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]);
+//                NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"decodeInTrack"], @"-f", @"-S", @"-G", @"-b", @"16", @"-r", @"44.1k",[filePaths objectForKey:@"decodeInTrack"],@"trim", @"0", @"5", @"speed", @"0.015", nil];
+
 				NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"decodeInTrack"], @"-f", @"-S", @"-G", @"-b", @"16", @"-r", @"44.1k",[filePaths objectForKey:@"decodeInTrack"],@"trim", @"0", @"5", @"speed", @"0.015", nil];
 				NSArray *soxCommands = [NSArray arrayWithObject:arguments1];
 				[self processAudio:soxCommands];
@@ -187,6 +191,8 @@
 
 -(void)processAudio:(NSArray *)commands
 {
+    [conversionProgress setHidden:NO];
+    [conversionProgress startAnimation:self];
 	NSString *path=[[NSBundle mainBundle] pathForResource:@"sox" ofType:nil];
 	[self disableInterfaceElements];
 	for(id obj in commands)
@@ -214,7 +220,10 @@
 		[task waitUntilExit];
 		[task release];
 	}
-	[self enableInterfaceElements];
+    if([commands count] == 3) [self cleanUp]; //delete temp files
+    [conversionProgress stopAnimation:self];
+    [conversionProgress setHidden:YES];
+	[self enableInterfaceElements];  //enabel interface
 }
 
 -(IBAction)manageInterface:(id)sender
@@ -260,7 +269,6 @@
 	NSOpenPanel *oPanel = [[NSOpenPanel openPanel] retain];
 	[oPanel setCanChooseDirectories:NO];
 	[oPanel setCanChooseFiles:YES];
-//    [oPanel setDelegate:self];
 	[oPanel	setCanCreateDirectories:NO];
     switch([oPanel runModal])
     {
@@ -345,10 +353,12 @@
 {
 
     NSSavePanel *savePanel	= [NSSavePanel savePanel];
+//    [savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"txt"]];
+
     int tvarInt	= [savePanel runModal];
     if(tvarInt == NSOKButton)
     {
-        NSLog(@"doSaveAs we have an OK button");	
+        NSLog(@"do Save As we have an OK button");	
     } 
     else if(tvarInt == NSCancelButton) 
     {
@@ -371,12 +381,22 @@
             [encodeSaveToTitle setStringValue: [filePaths objectForKey:@"encodeOut"]];
             break;
         case 2:
-            [filePaths setObject:[NSString stringWithFormat:@"%@.flac",saveFile] forKey:@"decodeOut"];
+            [filePaths setObject:[NSString stringWithFormat:@"%@.wav",saveFile] forKey:@"decodeOut"];
             [decodeSaveToTitle setStringValue: [filePaths objectForKey:@"decodeOut"]];
             break;
         default:
             break;
 						
     }
+}
+
+-(void)cleanUp
+{
+    NSFileManager *manager = [[NSFileManager alloc] init];
+    BOOL isDir;
+    NSString *tempFileA = [NSString stringWithFormat:@"%@/temp1.wav",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]];
+    NSString *tempFileB = [NSString stringWithFormat:@"%@/temp1.wav",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]];
+    if([manager fileExistsAtPath:tempFileA]) [manager removeItemAtPath:tempFileA error:nil];
+    if([manager fileExistsAtPath:tempFileB]) [manager removeItemAtPath:tempFileB error:nil];
 }
 @end
