@@ -56,7 +56,9 @@
 				NSString *tempFileB = [NSString stringWithFormat:@"%@/temp2.wav",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]];
 				NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"encodeInTrack"], @"-f", @"-S", @"-G", @"-V", @"-b", @"24", @"-r", @"384k",tempFileA, nil];
 				NSArray *arguments2 = [NSArray arrayWithObjects: [filePaths objectForKey:@"encodeInHidden"], @"-f", @"-S", @"-G", @"-V", @"-b", @"24", @"-r", @"384k", tempFileB, @"speed", @"80", @"highpass", @"60k", nil];
-				NSArray *arguments3 = [NSArray arrayWithObjects: tempFileA, tempFileB, @"-f", @"-S", @"-G",[filePaths objectForKey:@"encodeOut"], nil];
+//				NSArray *arguments3 = [NSArray arrayWithObjects: tempFileA, tempFileB, @"-f", @"-S", @"-G",[filePaths objectForKey:@"encodeOut"], nil];
+                NSArray *arguments3 = [NSArray arrayWithObjects: @"-m", tempFileA, tempFileB, @"-f", @"-C", @"1", @"-S", @"-G",[filePaths objectForKey:@"encodeOut"], nil];
+
 				NSArray *soxCommands = [NSArray arrayWithObjects:arguments1,arguments2,arguments3,nil];
 				[self processAudio:soxCommands];
 			}
@@ -67,7 +69,9 @@
 				NSString *tempFileB = [NSString stringWithFormat:@"%@/temp2.wav",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]];
 				NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"encodeInTrack"], @"-f", @"-S", @"-G", @"-V", @"-b", @"24", @"-r", @"384k",tempFileA, nil];
 				NSArray *arguments2 = [NSArray arrayWithObjects: [filePaths objectForKey:@"encodeInHidden"], @"-f", @"-S", @"-G", @"-V", @"-b", @"24", @"-r", @"384k", tempFileB, @"speed", @"80", @"highpass", @"60k", nil];
-				NSArray *arguments3 = [NSArray arrayWithObjects: tempFileA, tempFileB, @"-f", @"-S", @"-G",[filePaths objectForKey:@"encodeInTrack"], nil];
+//				NSArray *arguments3 = [NSArray arrayWithObjects: tempFileA, tempFileB, @"-f", @"-S", @"-G",[filePaths objectForKey:@"encodeInTrack"], nil];
+                NSArray *arguments3 = [NSArray arrayWithObjects: @"-m", tempFileA, tempFileB, @"-f", @"-C", @"1", @"-S", @"-G",[filePaths objectForKey:@"encodeInTrack"], nil];
+        
 				NSArray *soxCommands = [NSArray arrayWithObjects:arguments1,arguments2,arguments3,nil];
 				[self processAudio:soxCommands];
 			}
@@ -85,7 +89,7 @@
 			else if ([replaceDecodedSong state] == NSOffState)
 			{
 				NSLog(@"%@",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]);
-				NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"decodeInTrack"], @"-f", @"-S", @"-G", @"-b", @"16", @"-r", @"44.1k",[filePaths objectForKey:@"decodeOut"],@"trim", @"0", @"5", @"speed", @"0.015", nil];
+				NSArray *arguments1 = [NSArray arrayWithObjects: @"-v", @"24",  [filePaths objectForKey:@"decodeInTrack"], @"-f", @"-S", @"-G", @"-b", @"16", @"-r", @"44.1k",[filePaths objectForKey:@"decodeOut"],@"trim", @"0", @"5", @"speed", @"0.0125", nil];
 				NSArray *soxCommands = [NSArray arrayWithObject:arguments1];
 				[self processAudio:soxCommands];
 			}
@@ -96,7 +100,7 @@
 				NSLog(@"%@",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]);
 //                NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"decodeInTrack"], @"-f", @"-S", @"-G", @"-b", @"16", @"-r", @"44.1k",[filePaths objectForKey:@"decodeInTrack"],@"trim", @"0", @"5", @"speed", @"0.015", nil];
 
-				NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"decodeInTrack"], @"-f", @"-S", @"-G", @"-b", @"16", @"-r", @"44.1k",[filePaths objectForKey:@"decodeInTrack"],@"trim", @"0", @"5", @"speed", @"0.015", nil];
+				NSArray *arguments1 = [NSArray arrayWithObjects:  @"-v", @"24", [filePaths objectForKey:@"decodeInTrack"], @"-f", @"-S", @"-G", @"-b", @"16", @"-r", @"44.1k",[filePaths objectForKey:@"decodeInTrack"],@"trim", @"0", @"5", @"speed", @"0.0125", nil];
 				NSArray *soxCommands = [NSArray arrayWithObject:arguments1];
 				[self processAudio:soxCommands];
 			}
@@ -395,7 +399,7 @@
     NSFileManager *manager = [[NSFileManager alloc] init];
     BOOL isDir;
     NSString *tempFileA = [NSString stringWithFormat:@"%@/temp1.wav",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]];
-    NSString *tempFileB = [NSString stringWithFormat:@"%@/temp1.wav",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]];
+    NSString *tempFileB = [NSString stringWithFormat:@"%@/temp2.wav",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]];
     if([manager fileExistsAtPath:tempFileA]) [manager removeItemAtPath:tempFileA error:nil];
     if([manager fileExistsAtPath:tempFileB]) [manager removeItemAtPath:tempFileB error:nil];
 }
