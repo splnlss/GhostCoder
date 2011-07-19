@@ -2,8 +2,8 @@
 //  AudIntAppDelegate.m
 //  AudInt
 //
-//  Created by Justin Blinder on 5/3/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Created by Justin Blinder + Jon Cohrs on 5/3/11.
+//  Copyright 2011 AUDiNT. All rights reserved.
 //
 
 #import "AudIntAppDelegate.h"
@@ -17,6 +17,7 @@
 //	[window setBackgroundColor:[NSColor colorWithPatternImage:[NSImage imageNamed:@"newbg.png"]]];
 	encodeImportTrackURL = [[NSString alloc] init];
 	filePaths = [[NSMutableDictionary alloc] init];
+	self.window.title = @"GhostCoder";
 }
 
 
@@ -45,7 +46,7 @@
 			{
 				[self promptAlert:@"No Hidden Track Selected." altMessage:@"Select A Hidden Track."];
 			}	
-			else if([[encodeSaveToTitle stringValue] isEqualTo:nil] || [[encodeSaveToTitle stringValue] isEqualTo:@""])
+			else if([[encodeSaveToTitle stringValue] isEqualTo:nil] || [[encodeSaveToTitle stringValue] isEqualTo:@""] && [replaceEncodedSong state] == NSOffState)
 			{
 				[self promptAlert:@"No Filename Entered." altMessage:@"Enter a filename."];
 			}
@@ -54,10 +55,10 @@
 				NSLog(@"%@",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]);
 				NSString *tempFileA = [NSString stringWithFormat:@"%@/temp1.wav",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]];
 				NSString *tempFileB = [NSString stringWithFormat:@"%@/temp2.wav",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]];
-				NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"encodeInTrack"], @"-f", @"-S", @"-G", @"-V", @"-b", @"24", @"-r", @"384k",tempFileA, nil];
-				NSArray *arguments2 = [NSArray arrayWithObjects: [filePaths objectForKey:@"encodeInHidden"], @"-f", @"-S", @"-G", @"-V", @"-b", @"24", @"-r", @"384k", tempFileB, @"speed", @"80", @"highpass", @"60k", nil];
+				NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"encodeInTrack"], @"-f", @"-S", @"-G", @"-V", @"-b", @"16", @"-r", @"384k",tempFileA, nil];
+				NSArray *arguments2 = [NSArray arrayWithObjects: [filePaths objectForKey:@"encodeInHidden"], @"-f", @"-S", @"-G", @"-V", @"-b", @"16", @"-r", @"384k", tempFileB,@"gain", @"-n", @"speed", @"70", @"highpass", @"90k", @"pad", @"2", @"0", nil];
 //				NSArray *arguments3 = [NSArray arrayWithObjects: tempFileA, tempFileB, @"-f", @"-S", @"-G",[filePaths objectForKey:@"encodeOut"], nil];
-                NSArray *arguments3 = [NSArray arrayWithObjects: @"-m", tempFileA, tempFileB, @"-f", @"-C", @"1", @"-S", @"-G",[filePaths objectForKey:@"encodeOut"], nil];
+                NSArray *arguments3 = [NSArray arrayWithObjects: @"-m", tempFileA, tempFileB, @"-f", @"-C", @"8", @"-S", @"-G",[filePaths objectForKey:@"encodeOut"],@"gain", @"+6", nil];
 
 				NSArray *soxCommands = [NSArray arrayWithObjects:arguments1,arguments2,arguments3,nil];
 				[self processAudio:soxCommands];
@@ -67,10 +68,10 @@
 				NSLog(@"%@",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]);
 				NSString *tempFileA = [NSString stringWithFormat:@"%@/temp1.wav",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]];
 				NSString *tempFileB = [NSString stringWithFormat:@"%@/temp2.wav",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]];
-				NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"encodeInTrack"], @"-f", @"-S", @"-G", @"-V", @"-b", @"24", @"-r", @"384k",tempFileA, nil];
-				NSArray *arguments2 = [NSArray arrayWithObjects: [filePaths objectForKey:@"encodeInHidden"], @"-f", @"-S", @"-G", @"-V", @"-b", @"24", @"-r", @"384k", tempFileB, @"speed", @"80", @"highpass", @"60k", nil];
+				NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"encodeInTrack"], @"-f", @"-S", @"-G", @"-V", @"-b", @"16", @"-r", @"44.1k",tempFileA, nil];
+				NSArray *arguments2 = [NSArray arrayWithObjects: [filePaths objectForKey:@"encodeInHidden"], @"-f", @"-S", @"-G", @"-V", @"-b", @"16", @"-r", @"384k", tempFileB,@"gain", @"-n", @"speed", @"70", @"highpass", @"90k", @"pad", @"2", @"0", nil];
 //				NSArray *arguments3 = [NSArray arrayWithObjects: tempFileA, tempFileB, @"-f", @"-S", @"-G",[filePaths objectForKey:@"encodeInTrack"], nil];
-                NSArray *arguments3 = [NSArray arrayWithObjects: @"-m", tempFileA, tempFileB, @"-f", @"-C", @"1", @"-S", @"-G",[filePaths objectForKey:@"encodeInTrack"], nil];
+                NSArray *arguments3 = [NSArray arrayWithObjects: @"-m", tempFileA, tempFileB, @"-f", @"-C", @"8", @"-S", @"-G",[filePaths objectForKey:@"encodeInTrack"],@"gain", @"+6", nil];
         
 				NSArray *soxCommands = [NSArray arrayWithObjects:arguments1,arguments2,arguments3,nil];
 				[self processAudio:soxCommands];
@@ -82,14 +83,14 @@
 			{
 				[self promptAlert:@"No Track Selected." altMessage:@"Select A Track."];
 			}
-			else if([[decodeSaveToTitle stringValue] isEqualTo:nil] || [[decodeSaveToTitle stringValue] isEqualTo:@""])
+			else if([[decodeSaveToTitle stringValue] isEqualTo:nil] || [[decodeSaveToTitle stringValue] isEqualTo:@""] &&  [replaceEncodedSong state] == NSOffState)
 			{
 				[self promptAlert:@"No Filename Entered." altMessage:@"Enter a filename."];
 			}
 			else if ([replaceDecodedSong state] == NSOffState)
 			{
 				NSLog(@"%@",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]);
-				NSArray *arguments1 = [NSArray arrayWithObjects: @"-v", @"24",  [filePaths objectForKey:@"decodeInTrack"], @"-f", @"-S", @"-G", @"-b", @"16", @"-r", @"44.1k",[filePaths objectForKey:@"decodeOut"],@"trim", @"0", @"5", @"speed", @"0.0125", nil];
+				NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"decodeInTrack"], @"-f", @"-S", @"-G", @"-b", @"16", @"-r", @"44.1k",[filePaths objectForKey:@"decodeOut"], @"gain", @"-n", @"trim", @"2", @"5", @"speed", @"0.014", @"highpass", @"200", nil];
 				NSArray *soxCommands = [NSArray arrayWithObject:arguments1];
 				[self processAudio:soxCommands];
 			}
@@ -100,7 +101,7 @@
 				NSLog(@"%@",[[filePaths objectForKey:@"encodeInTrack"] stringByDeletingLastPathComponent]);
 //                NSArray *arguments1 = [NSArray arrayWithObjects: [filePaths objectForKey:@"decodeInTrack"], @"-f", @"-S", @"-G", @"-b", @"16", @"-r", @"44.1k",[filePaths objectForKey:@"decodeInTrack"],@"trim", @"0", @"5", @"speed", @"0.015", nil];
 
-				NSArray *arguments1 = [NSArray arrayWithObjects:  @"-v", @"24", [filePaths objectForKey:@"decodeInTrack"], @"-f", @"-S", @"-G", @"-b", @"16", @"-r", @"44.1k",[filePaths objectForKey:@"decodeInTrack"],@"trim", @"0", @"5", @"speed", @"0.0125", nil];
+				NSArray *arguments1 = [NSArray arrayWithObjects:  [filePaths objectForKey:@"decodeInTrack"], @"-f", @"-S", @"-G", @"-b", @"16", @"-r", @"44.1k",[filePaths objectForKey:@"decodeInTrack"], @"gain", @"-n", @"trim", @"2", @"5", @"speed", @"0.014", @"highpass", @"200", nil];
 				NSArray *soxCommands = [NSArray arrayWithObject:arguments1];
 				[self processAudio:soxCommands];
 			}

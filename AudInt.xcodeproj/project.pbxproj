@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		256AC3DA0F4B6AC300CF3369 /* AudIntAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AudIntAppDelegate.m */; };
+		493E27CF13989298004D1FAA /* ghostcoder_grey2.png in Resources */ = {isa = PBXBuildFile; fileRef = 493E27CE13989298004D1FAA /* ghostcoder_grey2.png */; };
+		493E27D313989684004D1FAA /* ghostcoder_grey2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 493E27D213989684004D1FAA /* ghostcoder_grey2.icns */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -28,6 +30,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		493E27CE13989298004D1FAA /* ghostcoder_grey2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ghostcoder_grey2.png; sourceTree = "<group>"; };
+		493E27D213989684004D1FAA /* ghostcoder_grey2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ghostcoder_grey2.icns; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* AudInt-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AudInt-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* AudInt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudInt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B9DE33137C664C00330B8F /* SoxCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoxCommand.h; sourceTree = "<group>"; };
@@ -111,6 +115,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				493E27D213989684004D1FAA /* ghostcoder_grey2.icns */,
+				493E27CE13989298004D1FAA /* ghostcoder_grey2.png */,
 				C4B9E041137DFA3900330B8F /* newbg.png */,
 				C4B9E03A137DF98200330B8F /* MainMenu.xib */,
 				C4B9E032137DF90200330B8F /* audint.jpg */,
@@ -185,6 +191,8 @@
 				C4B9E033137DF90200330B8F /* audint.jpg in Resources */,
 				C4B9E03B137DF98200330B8F /* MainMenu.xib in Resources */,
 				C4B9E042137DFA3900330B8F /* newbg.png in Resources */,
+				493E27CF13989298004D1FAA /* ghostcoder_grey2.png in Resources */,
+				493E27D313989684004D1FAA /* ghostcoder_grey2.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +258,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CURRENT_PROJECT_VERSION = 1.01;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -257,6 +266,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
+				VERSIONING_SYSTEM = "";
 			};
 			name = Debug;
 		};
@@ -264,11 +274,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CURRENT_PROJECT_VERSION = 1.01;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
+				VERSIONING_SYSTEM = "";
 			};
 			name = Release;
 		};
